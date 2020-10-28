@@ -4,11 +4,13 @@ from mahasiswa.models import Pkl
 from catatan import models, forms
 
 def index(req):
-    
+
     group = req.user.groups.first()
     tasks = models.Catatan.objects.filter(owner=req.user)
     form_catatan = forms.CatatanForm()
     form_gambar = forms.GambarForm()
+
+
     if req.method == 'POST':
         form_catatan = forms.CatatanForm(req.POST)
         if form_catatan.is_valid():
@@ -33,7 +35,6 @@ def index(req):
         })
         
     return render(req, 'staf/index.html')
-
 
 def delete_catatan(req, id):
     models.Catatan.objects.filter(pk=id).delete()
