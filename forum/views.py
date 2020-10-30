@@ -1,25 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from mahasiswa.models import Pkl
+# from dosen.models import Dosen
 from . import models, forms
 from django.contrib import messages
 
 def index_dosen(req):
-    tasks = models.Forum.objects.all()
-    form_input = forms.ForumForm()
-
-    if req.POST:
-        form_input = forms.ForumForm(req.POST, req.FILES)
-        if form_input.is_valid():
-            form_input.instance.owner = req.user
-            form_input.save()
-            messages.success(req, 'Data telah ditambahkan.')
-            return redirect('/forumd/')
-
-    return render(req, 'forumd/index.html',{
-        'data': tasks,
-        'form' : form_input,
-    })
+    forum = req.user.mahasiswa.first().nama_dosen
+    return redirect(f'/forumd/{forum.id}')
 
 def index_staf(req):
     tasks = models.Forum.objects.all()
@@ -41,7 +29,7 @@ def index_staf(req):
 def index_mhs(req):
     forum = req.user.mahasiswa.first().nama_mitra
     return redirect(f'/forum/{forum.id}')
-    
+
 def delete_forum(req, id):
     models.Forum.objects.filter(pk=id).delete()
     messages.success(req, 'data telah di hapus.')
