@@ -39,22 +39,9 @@ def index_staf(req):
     })
 
 def index_mhs(req):
-    tasks = models.Forum.objects.all()
-    form_input = forms.ForumForm()
-
-    if req.POST:
-        form_input = forms.ForumForm(req.POST, req.FILES)
-        if form_input.is_valid():
-            form_input.instance.owner = req.user
-            form_input.save()
-            messages.success(req, 'Data telah ditambahkan.')
-            return redirect('/forum/')
-
-    return render(req, 'forum/index.html',{
-        'data': tasks,
-        'form' : form_input,
-    })
-
+    forum = req.user.mahasiswa.first().nama_mitra
+    return redirect(f'/forum/{forum.id}')
+    
 def delete_forum(req, id):
     models.Forum.objects.filter(pk=id).delete()
     messages.success(req, 'data telah di hapus.')

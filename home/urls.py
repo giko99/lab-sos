@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     path('', views.index),
     path('<id>/delete/', views.delete_catatan),
-    path('', views.forum_mhs),
+    path('cetak/', views.cetak),
+    # path('', views.forum_mhs),
 
 ]

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from mahasiswa.models import Pkl
 from catatan import models, forms
-from forum.models import Forum
+# from forum.models import Forum
 
 def index(req):
     group = req.user.groups.first()
@@ -41,8 +41,14 @@ def delete_catatan(req, id):
     models.Catatan.objects.filter(pk=id).delete()
     return redirect('/')
 
-def forum_mhs(req):
-    forum = models.tasks.objects.filter(pk=id)
-    return render(req, 'home/index.html',{
-        'forum': forum,
+def cetak(req):
+    cetak = models.Catatan.objects.all()
+    return render(req, 'home/cetak.html', {
+        'cetak' : cetak,
     })
+
+# def forum_mhs(req):
+#     forum = models.Forum.objects.filter(pk=id)
+#     return render(req, 'home/index.html',{
+#         'forum': forum,
+#     })
