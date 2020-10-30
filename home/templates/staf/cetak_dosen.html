@@ -1,0 +1,47 @@
+{% block content %}
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% for d in cetak_dosen %}
+    <title>Daftar Dosen Labsos</title>
+    {% endfor %}
+    <style>
+        h1{
+            text-align: center;
+        }
+        table{
+            border-collapse: collapse;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+        }
+        td, th {
+            text-align: center;
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+    <table class="table">
+        <tr>
+            <th>No</th>
+            <th>Nama Dosen</th>
+            <th>NIP</th>
+            <th>Fakultas</th>
+            <th>Jurusan</th>
+        </tr>
+        <tr>
+        {% for d in cetak_dosen %}
+        <td>{{forloop.counter}}</td>
+        <td>{{d.nama_dosen}}</td>
+        <td>{{d.nip}}</td>
+        <td>{{d.fakultas}}</td>
+        <td>{{d.jurusan}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <script> window.print() </script>
+</body>
+</head>
+</html>
+{% endblock %}
