@@ -2,7 +2,9 @@
 <!DOCTYPE html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Preview dan Cetak</title>
+    {% for d in cetak %}
+    <title>Catatan Harian {{d.owner}}</title>
+    {% endfor %}
     <style>
         h1{
             text-align: center;
@@ -24,14 +26,12 @@
         <tr>
             <th>No</th>
             <th>Tanggal Kegiatan</th>
-            <th>Nama</th>
             <th>Judul</th>
         </tr>
-        {% for d in cetak %}
         <tr>
+        {% for d in cetak %}
             <td>{{forloop.counter}}</td>
             <td>{{d.tgl_kegiatan}}</td>
-            <td>{{d.owner}}</td>
             <td>{{d.judul}}</td>
         </tr>
         {% endfor %}
