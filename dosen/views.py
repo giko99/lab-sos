@@ -5,8 +5,7 @@ from mahasiswa.models import Pkl
 from . import models, forms
 
 def index(req):
-    return render(req, 'dosen/index.html',
-    )
+    return render(req, 'dosen/index.html')
 
 def index_staf(req):
     tasks = models.Dosen.objects.all()

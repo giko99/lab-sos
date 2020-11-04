@@ -1,13 +1,25 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from mahasiswa.models import Pkl
-# from dosen.models import Dosen
 from . import models, forms
 from django.contrib import messages
 
 def index_dosen(req):
-    forum = req.user.mahasiswa.first().nama_dosen
-    return redirect(f'/forumd/{forum.id}')
+    tasks = models.Forum.objects.all()
+    form_input = forms.ForumForm()
+
+    if req.POST:
+        form_input = forms.ForumForm(req.POST, req.FILES)
+        if form_input.is_valid():
+            form_input.instance.owner = req.user
+            form_input.save()
+            messages.success(req, 'Data telah ditambahkan.')
+            return redirect('/forumd/')
+
+    return render(req, 'forumd/index.html',{
+        'data': tasks,
+        'form' : form_input,
+    })
 
 def index_staf(req):
     tasks = models.Forum.objects.all()
@@ -35,10 +47,6 @@ def delete_forum(req, id):
     messages.success(req, 'data telah di hapus.')
     return redirect('/forums/')
 
-def delete_komen(req, id):
-    models.Komen.objects.filter(pk=id).delete()
-    messages.success(req, 'data telah di hapus.')
-    return redirect('/forums/')
 
 def detail_forum(req, id):
     forum = models.Forum.objects.filter(pk=id).first() 
@@ -119,6 +127,21 @@ def delete_posting_mhs(req, id, id_posting):
     models.Posting.objects.filter(pk=id_posting).delete()
     messages.success(req, 'data telah di hapus.')
     return redirect(f'/forum/{id}')
+
+def delete_komen(req, id, id_komen):
+    models.Komen.objects.filter(pk=id_komen).delete()
+    messages.success(req, 'data telah di hapus.')
+    return redirect(f'/forums/{id}/komen')
+
+def delete_komen_d(req, id, id_komen):
+    models.Komen.objects.filter(pk=id_komen).delete()
+    messages.success(req, 'data telah di hapus.')
+    return redirect(f'/forumd/{id}/komen')
+
+def delete_komen_mhs(req, id, id_komen):
+    models.Komen.objects.filter(pk=id_komen).delete()
+    messages.success(req, 'data telah di hapus.')
+    return redirect(f'/forum/{id}/komen')
 
 def staf_komen(req, id, id_posting):
     posting = models.Posting.objects.filter(pk=id_posting).first() 

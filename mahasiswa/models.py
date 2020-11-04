@@ -13,11 +13,18 @@ class Pkl(models.Model):
     tanggal_mulai = models.DateField(default=datetime.now)
     tanggal_selesai = models.DateField()
     approve = models.BooleanField(default=False)
+    catatan = models.TextField(max_length=1500, help_text="maksimal 1500 karakter")
+    reject = models.BooleanField(default=False)
 
     def tanggal_mulai_format(self):
         return self.tanggal_selesai.strftime('%Y-%m-%d')
     def tanggal_selesai_format(self):
         return self.tanggal_selesai.strftime('%Y-%m-%d')
+    def range(self):
+        return self.tanggal_selesai - datetime.now().date()
+    def jatuhtempo(self):
+        return self.range().days
+
 
 
 

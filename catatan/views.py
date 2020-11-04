@@ -1,6 +1,9 @@
-
 from django.shortcuts import render, redirect
 from . import models, forms
+from django.shortcuts import render, redirect
+from django.db.models.functions import ExtractWeekDay
+from django.forms.models import model_to_dict
+from datetime import datetime, timedelta
 # tasks : mengambil catatan berdasarkan user yang login
 # jika user adalah staff maka ambil semua catatan 
 def index(req):
@@ -17,14 +20,15 @@ def index(req):
             images.append(models.Gambar.objects.create(upload_img=file,catatan=form_catatan.instance))
         return redirect('/catatan/')
 
-    tasks = models.Catatan.objects.filter(owner=req.user)
+    tasks = models.Catatan.objects.filter(owner=req.user).annotate(week=ExtractWeekDay('waktu'))
     group = req.user.groups.first()
     if group is not None and group.name == 'staf':
-        tasks = models.Catatan.objects.all()
+        tasks = models.Catatan.objects.annotate(week=ExtractWeekDay('waktu'))
     return render(req, 'catatan/index.html',{
         'data': tasks,
         'form_catatan' : form_catatan,
         'form_gambar' : form_gambar,
+
     })
     
 def new(req, *args, **kwargs):

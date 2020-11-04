@@ -7,7 +7,9 @@ import PIL.Image
 
 class Catatan(models.Model):
     owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='catatan')
-    tgl_kegiatan = models.DateField(default=datetime.now)
+    tgl_kegiatan = models.DateField(auto_now=True)
+    waktu = models.DateTimeField(auto_now_add=True)
+    now = datetime.now().replace(microsecond=0)
     judul = models.CharField(max_length=100)
     ket = models.TextField(max_length=500, help_text="maksimal 500 kata")
     

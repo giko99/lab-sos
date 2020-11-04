@@ -25,75 +25,106 @@
                             <div style="text-align: right;">
                                 <a href="#delete-{{d.id}}" data-toggle="modal" data-target="#delete-{{d.id}}">Hapus</a>
                             </div>
-                            <h5 class="card-title m-0">{{d.owner}} - {{d.waktu}}</h5>
-                            <p class="card-text">{{d.desc}}</p>
+                            <h6 class="font-weight-bold text-primary" style="font-size: medium;">{{d.owner}}
+                                <h7 class="font-weight-bold text-secondary">{{d.waktu}}</h7>
+                            </h6>
+                            <h6 class="font-weight-bold">{{d.desc}} </h6>
                         </div>
-                        <div class="card-body" style="text-align: center;">
-                            <a href="#komen" data-toggle="modal" data-target="#komen">Komentari</a>
+                        <div class="card-body p-3 mt-2" style="text-align: center;">
+                            <a class="btn btn-warning" data-toggle="collapse" href="#komen" role="button"
+                                aria-expanded="false" aria-controls="komen"
+                                style="background-color:rgb(255, 214, 0);"><b>Comment</b></a>
                         </div>
+
+                        <!-- komen -->
                         <div class="container-fluid">
-                            <div class="card-body">
-                                {% for k in d.komentar.all %}
-                                <h6 class="card-title m-0">{{k.pengguna}} - {{k.waktu}}</h6>
-                                <p class="card-text">{{k.komentar}}</p>
-                                {% endfor %}
-                            </div>
+                            <form action="/forums/{{data.id}}/posting/{{d.id}}/komen" method="POST" class="mt-3">
+                                {% load crispy_forms_tags %}
+                                {% csrf_token %}
+                                {{ form_komen|crispy }}
+                                <button type="submit" class="btn btn-warning btn-block mt-1"
+                                    style="background-color:rgb(255, 214, 0);"><b>Post</b></button>
+                            </form>
                         </div>
                         <div class="card-footer">
                         </div>
-                    </div>
-                </div>
-
-                <!-- Modal Komen -->
-                <div class="modal fade" id="komen" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <form action="/forumd/{{data.id}}/posting/{{d.id}}/komen" method="post" class="mt-3"
-                                    enctype="multipart/form-data">
-                                    {% load crispy_forms_tags %}
-                                    {% csrf_token %}
-                                    {{ form_komen|crispy }}
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">Komentari</button>
+                        {% for k in d.komentar.all %}
+                        <div class="collapse multi-collapse" id="komen">
+                            <div class="card p-3 mt-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="user d-flex flex-row align-items-center"> <img
+                                            src="https://i.imgur.com/0LKZQYM.jpg" width="50"
+                                            class="user-img rounded-circle mr-2">
+                                        <span>
+                                            <h6 class="font-weight-bold text-primary">{{k.pengguna}}<h7
+                                                    class="font-weight-bold text-secondary">{{k.waktu}}</h7>
+                                            </h6>
+                                            <h6 class="font-weight-bold">{{k.komentar}} </h6>
+                                        </span>
                                     </div>
-                                </form>
+                                </div>
+                                <div class="action d-flex justify-content-between mt-2 align-items-center">
+                                    <div class="px-4">
+                                        <a href="/forumd/{{data.id}}/posting/{{d.id}}/delete/komen"
+                                            type="submit">Remove</a>
+                                        <a href="#">Reply</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Modal Komen -->
+                    <div class="modal fade" id="komen" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <form action="/forumd/{{data.id}}/posting/{{d.id}}/komen" method="post" class="mt-3"
+                                        enctype="multipart/form-data">
+                                        {% load crispy_forms_tags %}
+                                        {% csrf_token %}
+                                        {{ form_komen|crispy }}
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Komentari</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Modal Delete -->
-                <div class="modal fade" id="delete-{{d.id}}" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <!-- <div class="modal-header">
+                    <!-- Modal Delete -->
+                    <div class="modal fade" id="delete-{{d.id}}" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <!-- <div class="modal-header">
                                 <h5 class="modal-title" id="delete">Delete Postingan</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div> -->
-                            <div class="modal-body" style="text-align: center;">
-                                <div class="modal-body">
-                                    <h5> Do You want to delete this post ?</h5>
+                                <div class="modal-body" style="text-align: center;">
+                                    <div class="modal-body">
+                                        <h5> Do You want to delete this post ?</h5>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn" type="button" data-dismiss="modal" aria-label="Close">
-                                    No
-                                </button>
-                                <a href="/forumd/{{data.id}}/posting/{{d.id}}/delete" type="submit"
-                                    class="btn btn-danger">Yes</a>
+                                <div class="modal-footer">
+                                    <button class="btn" type="button" data-dismiss="modal" aria-label="Close">
+                                        No
+                                    </button>
+                                    <a href="/forumd/{{data.id}}/posting/{{d.id}}/delete" type="submit"
+                                        class="btn btn-danger">Yes</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
-</div>
-{% endblock %}
+    {% endblock %}

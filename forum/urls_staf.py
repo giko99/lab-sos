@@ -10,9 +10,8 @@ urlpatterns = [
     path('<id>/', views.detail_forum),
     path('<id>/delete/', views.delete_forum),
     # path('<id>/detail/delete/', views.delete_posting),
-
     path('<id>/posting/<id_posting>/delete/', views.delete_posting),
-    
+    path('<id>/posting/<id_komen>/delete/komen', views.delete_komen),
     path('<id>/posting/<id_posting>/komen', views.staf_komen),
-    path('<id>/komen/<id_komen>/delete/', views.delete_komen),
+    path('<id>/komen/<id_posting>/delete/', views.delete_komen),
 ]
