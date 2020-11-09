@@ -3,6 +3,9 @@ from django.contrib.auth import get_user_model
 from mahasiswa.models import Pkl
 from catatan import models, forms
 from forum.models import Forum
+from dosen.models import Dosen
+
+
 
 def index(req):
     group = req.user.groups.first()
@@ -43,6 +46,12 @@ def delete_catatan(req, id):
 
 def cetak(req):
     cetak = models.Catatan.objects.all()
+    forum = Forum.objects.filter().first()
+    pkl = Pkl.objects.filter().first()
+    dosen = Dosen.objects.filter().first()
     return render(req, 'home/cetak.html', {
         'cetak' : cetak,
+        'forum' :forum, 
+        'pkl' :pkl,
+        'dosen':dosen,  
     })

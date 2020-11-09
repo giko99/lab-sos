@@ -1,12 +1,8 @@
 {% extends "base_dosen.html" %}
 
 {% block content %}
-<div id="layoutSidenav_content">
-  <main>
     <div class="container-fluid">
-      <h1 class="mt-4" style="text-align: center;">Data PKL</h1>
-      <ol class="breadcrumb mb-4">
-      </ol>
+      <h1 class="mt-4 mb-4" style="text-align: center;">Data PKL</h1>
       <div class="card-body">
         <!-- <a type="submit" href="/mahasiswas/input"><button class="btn btn-primary mb-4">Tambah</button></a> -->
         <div class="table-responsive">
@@ -17,7 +13,7 @@
                 <th>Nim</th>
                 <th>Judul</th>
                 <th>Nama Mitra</th>
-                <th>Dosen Pembimbing</th>
+                <!-- <th>Dosen Pembimbing</th> -->
                 <th>Tanggal Pelaksanaan</th>
                 <th>Status</th>
               </tr>
@@ -28,7 +24,7 @@
               <td>{{d.owner}}</td>
               <td><a href="/dosenah/{{d.id}}">{{d.judul}}</a></td>
               <td>{{d.nama_mitra}}</td>
-              <td>{{d.nama_dosen}}</td>
+              <!-- <td>{{d.nama_dosen}}</td> -->
               <td>{{d.tanggal_mulai}} - {{d.tanggal_selesai}}</td>
               <td>
                 {% if d.approve == True %}

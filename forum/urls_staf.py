@@ -6,10 +6,8 @@ from . import views
 
 urlpatterns = [
     path('', views.index_staf),
-    # path('new/', views.new),
     path('<id>/', views.detail_forum),
     path('<id>/delete/', views.delete_forum),
-    # path('<id>/detail/delete/', views.delete_posting),
     path('<id>/posting/<id_posting>/delete/', views.delete_posting),
     path('<id>/posting/<id_komen>/delete/komen', views.delete_komen),
     path('<id>/posting/<id_posting>/komen', views.staf_komen),

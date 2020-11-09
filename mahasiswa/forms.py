@@ -12,7 +12,7 @@ class PklForm(ModelForm):
         exclude = ['owner', 'approve','catatan','reject']
         widgets = {
             'tanggal_mulai': DatePickerInput().start_of('event days'),
-            'tanggal_selesai': DatePickerInput().end_of('event days'),
+            'tanggal_selesai': DatePickerInput(format='%Y-%m-%d').end_of('event days'),
         }
 class RejectForm(ModelForm):
     class Meta:

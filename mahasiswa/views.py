@@ -21,7 +21,7 @@ def index(req):
             return redirect('/mahasiswa')
         else:
             messages.error(req, 'A problem has been occurred while submitting your data.')
-
+            print(form_input.errors)
 
     # group = req.user.groups.first()
     # if group is not None and group.name == 'staf':

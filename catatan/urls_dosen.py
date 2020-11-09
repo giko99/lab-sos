@@ -7,7 +7,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index_dosen),
+    path('new/', views.new),
     path('<id>/', views.detail_dosen),
+    path('<id>/delete/', views.delete),
 ]
 
 # if settings.DEBUG:

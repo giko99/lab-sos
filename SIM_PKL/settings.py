@@ -13,13 +13,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'y&ma&g0z0r603*p2qz9^hotn**h60eey1w2kwb)glz#sdtt8&)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
-# 'https://lab-sos.herokuapp.com',
-# 'localhost',
-# '127.0.0.1'
+ALLOWED_HOSTS = [*]
 
 
 # Application definition
@@ -42,7 +39,6 @@ INSTALLED_APPS = [
     'forum',
     # 'comment',
     'countable_field',
-    'gm2m',
 ]
 
 MIDDLEWARE = [
@@ -85,7 +81,7 @@ WSGI_APPLICATION = 'SIM_PKL.wsgi.application'
 DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'labsos',
+        'NAME': 'tatam',
         'USER': 'giko99',
         'PASSWORD': 'gikoriyo382',
         'HOST': 'localhost',
@@ -130,8 +126,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATICFILES_DIRS =[
